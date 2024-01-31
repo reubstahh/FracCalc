@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class FracCalc {
 
     public static void main(String[] args) throws IOException {
-        // TODO: Read the input from the user and call produceAnswer with an
+        // TODO: Read the input from the user and call produce an Answer with an
         // equation
         Scanner sc = new Scanner(System.in);
         while (true) {
