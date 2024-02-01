@@ -1,1 +1,1 @@
-FracCalc is an AP CS project
+Calculator Project
