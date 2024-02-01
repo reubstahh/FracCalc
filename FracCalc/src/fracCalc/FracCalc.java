@@ -6,8 +6,6 @@ import java.util.Scanner;
 public class FracCalc {
 
     public static void main(String[] args) throws IOException {
-        // TODO: Read the input from the user and call produce an Answer with an
-        // equation
         Scanner sc = new Scanner(System.in);
         while (true) {
             String input = sc.nextLine();
@@ -20,19 +18,7 @@ public class FracCalc {
         sc.close();
     }
 
-    // ** IMPORTANT ** DO NOT DELETE THIS FUNCTION. This function will be used
-    // to test your code
-    // This function takes a String 'input' and produces the result
-    //
-    // input is a fraction string that needs to be evaluated. For your program,
-    // this will be the user input.
-    // e.g. input ==> "1/2 + 3/4"
-    //
-    // The function should return the result of the fraction after it has been
-    // calculated
-    // e.g. return ==> "1_1/4"
     public static String produceAnswer(String input) {
-        // TODO: Implement this function to produce the solution to the input
         String values[] = input.split(" ");
         String improper = toImproperFraction(values[0]);
         long numerator = getFractionNumerator(improper);
@@ -68,16 +54,6 @@ public class FracCalc {
         return toMixedFraction(reduce(numerator, denominator));
     }
 
-    // TODO: Fill in the space below with any helper methods that you think you
-    // will need
-
-    // ------------------------------------------------------------------------------
-    // //
-    // Below is a solution if you do not use classes
-    // Instead, pass everything around as a string, and have functions
-    // that convert from one format to another, or to extract parts of
-    // a string
-
     public static String toImproperFraction(String value) {
         String fraction = null;
         long whole = 0;
@@ -102,7 +78,6 @@ public class FracCalc {
             }
         }
 
-        // Convert to an improper fraction
         numerator = denominator * whole + numerator;
         if (denominator < 0) {
             denominator *= -1;
@@ -179,12 +154,7 @@ public class FracCalc {
         return makeFractionString(numerator, denominator);
     }
 
-    // ------------------------------------------------------------------------------
-    // //
-    // Below is a solution if you use classes
-    //
     public static String produceAnswerWithClasses(String input) {
-        // TODO: Implement this function to produce the solution to the input
         String values[] = input.split(" ");
         MixedFraction value = MixedFraction.fromString(values[0]);
         for (int ii = 1; ii < values.length; ii += 2) {
@@ -210,37 +180,10 @@ public class FracCalc {
     }
 
     public static class MixedFraction {
-
-        // The convention of this class is that the value should
-        // always be (whole + numerator / denominator)
-        // That means for a negative mixed fraction, like -2_1/2, whole must be
-        // negative,
-        // and either the numerator or the denominator and numerator should also
-        // be negative.
-        // (Preferably the numerator).
         public long whole = 0;
         public long numerator = 0;
         public long denominator = 1;
 
-        /**
-         * Parse a single value. From the spec:
-         * 
-         * Input values may be in the form of mixed fractions, proper fractions,
-         * improper fractions or integers. The integer and fraction parts of a
-         * mixed fraction will be separated by an underscore (_) (e.g., “1_3/4”
-         * is one and three fourths to distinguish it from “13/4” which is
-         * thirteen fourths).
-         *
-         * Algorithm: if the string contains a _, split on that into intpart and
-         * fracpart. otherwise, if the string contains a /, call it the
-         * fracpart, otherwise call it the intpart.
-         * 
-         * if there is a fracpart, split it by / into numerator and denominator,
-         * otherwise numerator=0, denominator=1
-         *
-         * @param value
-         * @return
-         */
         public static MixedFraction fromString(String value) {
             MixedFraction retval = new MixedFraction();
             String fraction = null;
@@ -287,9 +230,6 @@ public class FracCalc {
             }
         }
 
-        // In general, the methods below return copies, they don't mutate the
-        // object.
-
         public MixedFraction copy() {
             MixedFraction retval = new MixedFraction();
             retval.whole = whole;
@@ -309,14 +249,6 @@ public class FracCalc {
             return retval;
         }
 
-        /**
-         * Returns a version of the fraction as an improper fraction, where
-         * whole is zero. This also forces the denominator to be positive. This
-         * is the form used for most of the calculations. Note that this is not
-         * necessarily reduced.
-         * 
-         * @return
-         */
         public MixedFraction improper() {
             MixedFraction retval = new MixedFraction();
             retval.denominator = denominator;
@@ -328,15 +260,6 @@ public class FracCalc {
             return retval;
         }
 
-        /**
-         * Returns a version of the fraction in mixed form. This also guarantees
-         * that the denominator will be positive. Note that if the number is
-         * positive, whole, numerator, and denominator will all be positive (or
-         * zero). If the number is negative, both whole and numerator will be
-         * negative (or zero). Note that it will not necessarily be reduced.
-         * 
-         * @return
-         */
         public MixedFraction mixed() {
             MixedFraction retval = new MixedFraction();
             int whole_sign = 1, num_sign = 1, den_sign = 1;
@@ -361,12 +284,6 @@ public class FracCalc {
             return retval;
         }
 
-        /**
-         * Returns the reciprocal of the number, in improper form. Also forces
-         * the denominator to be positive.
-         * 
-         * @return
-         */
         public MixedFraction reciprocal() {
             MixedFraction a = improper();
             long temp = a.denominator;
@@ -379,14 +296,6 @@ public class FracCalc {
             return a;
         }
 
-        /**
-         * Euler's GCD algorithm
-         * (https://en.wikipedia.org/wiki/Greatest_common_divisor#Using_Euclid.27s_algorithm)
-         * 
-         * @param a
-         * @param b
-         * @return
-         */
         public static long gcd(long a, long b) {
             while (true) {
                 if (b == 0) {
